@@ -1,11 +1,18 @@
 #include <SPI.h>
 #include <TimerOne.h>
 
+//////////////////////////////
+// work area
+/////////////////////////////
+
+// Buffer
 uint8_t ledBuff0[8] = {	0,0,0,0,0,0,0,0 };
 uint8_t ledBuff1[8] = {	0,0,0,0,0,0,0,0 };
 uint8_t ledBuff2[8] = {	0,0,0,0,0,0,0,0 };
 uint8_t ledBuff3[8] = { 0,0,0,0,0,0,0,0 };
 
+// LED pattern
+// 各LEDの明るさを0～3
 uint8_t ledLv[36] = {
 	1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,
@@ -16,10 +23,10 @@ uint8_t ledLv[36] = {
 ///////////////////////////////
 /// pin difinition
 ///////////////////////////////
-int latchPin = 5; //PD5  74HC595のST_CP(RCK)へ pin12
+int latchPin = 5; //PD5  74HC595-pin12 (RCK)
 int testPin = 4; //デバッグピン
-//digital13(SCK) clockPin 74HC595-pin11
-//digital11(MOSI) dataPin 74HC595-pin14
+//digital13(SCK) 74HC595-pin11 (Serial ClocK)
+//digital11(MOSI) 74HC595-pin14 (SERial data input)
 
 
 #define PinOffset 0;
@@ -61,8 +68,7 @@ void LvToBuff(uint8_t prg, uint8_t order){
 
 //////////////////////////////////////////////////////
 /// ledLvToBuff
-///  
-///  
+///  ハードウェアの配線で調整できるように
 //////////////////////////////////////////////////////
 void ledLvToBuff(){
 	uint8_t real = 0;
@@ -126,7 +132,6 @@ void shiftOut(){
 	PORTD |= _BV(latchPin);	//HIGH
 	PORTD &= ~_BV(latchPin);//LOW
 }
-
 
 int setShiftReg(){
 	static uint8_t buffNo =0 ;
