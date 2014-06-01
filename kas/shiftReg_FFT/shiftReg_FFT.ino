@@ -28,7 +28,7 @@ int testPin = 4; //デバッグピン
 //digital13(SCK) 74HC595-pin11 (Serial ClocK)
 //digital11(MOSI) 74HC595-pin14 (SERial data input)
 
-
+// the number of leds is not x8
 #define PinOffset 0;
 
 void LvToBuff(uint8_t prg, uint8_t order){
@@ -128,11 +128,20 @@ void ledLvToBuff(){
 	//20 -20
 }
 
+
+//////////////////////////////////////////////////////
+/// シフトレジスタICにセットした値を出力する
+//////////////////////////////////////////////////////
 void shiftOut(){
 	PORTD |= _BV(latchPin);	//HIGH
 	PORTD &= ~_BV(latchPin);//LOW
 }
 
+
+//////////////////////////////////////////////////////
+/// シフトレジスタに値をセットする
+/// セット終了：返り値１
+//////////////////////////////////////////////////////
 int setShiftReg(){
 	static uint8_t buffNo =0 ;
 
