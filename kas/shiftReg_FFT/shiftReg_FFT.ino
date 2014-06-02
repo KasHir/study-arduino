@@ -145,6 +145,8 @@ void shiftOut(){
 int setShiftReg(){
 	static uint8_t buffNo =0 ;
 
+	// @TODO
+	// 自分で読ん見返しても，これで正しいのか分からない
 	switch(buffNo){
 		case 0:
 			SPI.transfer(ledBuff0[0]);
